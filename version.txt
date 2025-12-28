@@ -1,4 +1,4 @@
-BP_WB Version 0.1.0.001
+BP_WB Version 0.0.0.001
 Date: December 21, 2025
 
 === Latest Changes ===
