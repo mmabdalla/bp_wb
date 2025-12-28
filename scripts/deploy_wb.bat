@@ -92,14 +92,10 @@ if exist "%SOURCE_DIR%\package.json" (
     echo [OK] Copied package.json
 )
 
-REM Copy backend directory (compiled JS files only, exclude .ts files)
+REM Copy backend directory (both .ts and .js files will be copied, Node.js uses .js)
 if exist "%SOURCE_DIR%\backend" (
     xcopy /E /I /Y "%SOURCE_DIR%\backend" "%TARGET_DIR%\backend" >nul
-    REM Remove TypeScript source files from target
-    for /r "%TARGET_DIR%\backend" %%f in (*.ts) do (
-        if not "%%~nxf"=="*.test.ts" del "%%f"
-    )
-    echo [OK] Copied backend directory (JS files)
+    echo [OK] Copied backend directory
 )
 
 REM Copy migrations directory

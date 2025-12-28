@@ -8,6 +8,10 @@ dist/
 build/
 *.tsbuildinfo
 
+# Compiled JavaScript (backend)
+backend/**/*.js
+!backend/**/*.config.js
+
 # Environment variables
 .env
 .env.local
