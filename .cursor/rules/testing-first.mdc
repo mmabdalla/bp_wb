@@ -1,0 +1,13 @@
+---
+description: Force test execution & writing
+globs: ["**/*.ts", "**/*.js", "**/*.py", "**/*.go", etc.]
+alwaysApply: true
+---
+
+## Testing is mandatory
+- Every non-trivial change must include or update tests.
+- After generating code, always run the full test suite (npm test / pytest / go test / etc.).
+- If tests are missing for the area you touch, write them first.
+- Enable YOLO mode only for allowed test commands (configure in Cursor settings → Features → YOLO).
+- If any test fails → fix it before presenting the final diff.
+- Use “Run tests and fix any failures” as your default loop.

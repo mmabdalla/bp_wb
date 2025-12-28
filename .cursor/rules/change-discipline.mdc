@@ -1,0 +1,11 @@
+---
+description: Force review before applying
+alwaysApply: true
+---
+
+## Workflow
+1. Understand the request fully.
+2. If the change touches >3 files or is architectural → output a clear numbered plan and wait for “proceed”.
+3. Generate code → run tests → show diff → ask “Apply this?” (never auto-apply large changes).
+4. After user says yes → apply and re-run tests.
+5. Never say “looks good” if you haven’t actually executed the code/tests.

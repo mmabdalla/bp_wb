@@ -1,0 +1,10 @@
+---
+description: Prevent inventing APIs or ignoring real code
+alwaysApply: true
+---
+
+- Base all code on the actual codebase, not assumptions.
+- If a function/class/pattern might exist, search the codebase first (@Codebase or grep).
+- Never use placeholder comments like “implement later”. Implement or ask.
+- For external libraries: only use versions and APIs that actually exist in package.json/requirements.txt/etc.
+- If the codebase has an established pattern (e.g., custom hooks, service layer), follow it exactly — never introduce a new one without asking.
