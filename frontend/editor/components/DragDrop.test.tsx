@@ -1,9 +1,10 @@
 // WB-003: Drag-and-Drop System - Tests First (TDD)
-import { describe, it, expect } from '@jest/globals';
+import { describe, it, expect, jest, beforeEach } from '@jest/globals';
+import { render, screen } from '@testing-library/react';
 
 describe('Drag and Drop System', () => {
   it('should allow dragging component from palette', () => {
-    // TODO: Implement test
+    // TODO: Implement test when drag-drop is implemented
     expect(true).toBe(true);
   });
 

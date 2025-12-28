@@ -1,7 +1,10 @@
 export default {
-  testEnvironment: 'jsdom',
   preset: 'ts-jest/presets/default-esm',
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.js',
+    '<rootDir>/frontend/editor/components/setupTests.ts',
+  ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/frontend/$1',
     '^@editor/(.*)$': '<rootDir>/frontend/editor/$1',
@@ -14,6 +17,9 @@ export default {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(react-dnd|react-dnd-html5-backend|dnd-core|@react-dnd)/)',
+  ],
   testMatch: ['**/__tests__/**/*.test.{ts,tsx}', '**/*.test.{ts,tsx}'],
   collectCoverageFrom: [
     'frontend/**/*.{ts,tsx}',

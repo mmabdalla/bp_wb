@@ -1,7 +1,14 @@
-BP_WB Version 0.0.0.001
+BP_WB Version 0.0.0.002
 Date: December 21, 2025
 
 === Latest Changes ===
+- [FIX] Removed direct database operations - now using BOSA SDK only
+  - Removed better-sqlite3 dependency from package.json
+  - Updated backend/api/pages.ts to use BOSA SDK (bosa.db.query) instead of direct SQL
+  - Updated server.js to initialize BOSA SDK properly
+  - Updated tests to mock BOSA SDK instead of using direct database
+  - All database operations now go through BOSA SDK as required by constitution
+  - Added proper error logging using bosa.log methods
 - [SETUP] Initial project structure and configuration
   - Created manifest.yaml with Node.js runtime configuration
   - Set up package.json with React, TypeScript, Vite, and build tools

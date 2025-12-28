@@ -1,7 +1,8 @@
 // BP_WB - BOSA Plugin Website Builder
 // Main entry point for Node.js runtime
 
-import { BOSA } from 'bosa-sdk-node';
+// TODO: Add bosa-sdk-node when available
+// import { BOSA } from 'bosa-sdk-node';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,11 +11,47 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Initialize BOSA SDK
-const bosa = new BOSA({
-  kernelURL: process.env.BOSA_KERNEL_URL || 'http://localhost:3000',
-  pluginName: process.env.PLUGIN_NAME || 'bp_wb',
-  pluginToken: process.env.BOSA_KERNEL_TOKEN,
-});
+// TODO: Uncomment when bosa-sdk-node is available
+// import { BOSA } from 'bosa-sdk-node';
+// const bosa = new BOSA({
+//   kernelURL: process.env.BOSA_KERNEL_URL || 'http://localhost:3000',
+//   pluginName: process.env.PLUGIN_NAME || 'bp_wb',
+//   pluginToken: process.env.BOSA_KERNEL_TOKEN,
+// });
+// await bosa.init();
+
+// Mock BOSA SDK for development (must match SDK interface)
+const bosa = {
+  init: async () => Promise.resolve(),
+  log: {
+    info: (msg) => console.log(`[INFO] ${msg}`),
+    error: (msg) => console.error(`[ERROR] ${msg}`),
+    warn: (msg) => console.warn(`[WARN] ${msg}`),
+  },
+  db: {
+    query: (table) => ({
+      where: (col, op, val) => ({
+        where: (col2, op2, val2) => ({
+          first: async () => null,
+          get: async () => [],
+          update: async () => {},
+          delete: async () => 0,
+        }),
+        first: async () => null,
+        get: async () => [],
+        update: async () => {},
+        delete: async () => 0,
+      }),
+      insert: async (data) => Math.floor(Math.random() * 1000),
+      get: async () => [],
+    }),
+  },
+};
+
+// Initialize BOSA SDK first
+(async () => {
+  await bosa.init();
+})();
 
 // Initialize Express app
 const app = express();
@@ -29,69 +66,21 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', plugin: 'bp_wb' });
 });
 
-// Route handlers (to be implemented in backend/api/)
+// Initialize pages API with BOSA SDK
+import { initPagesAPI, createPagesRouter } from './backend/api/pages.js';
+
+// Initialize pages API
+initPagesAPI(bosa);
+
+// Route handlers
 app.get('/', serveEditor);
 app.get('/editor', serveEditor);
-app.get('/api/pages', listPages);
-app.post('/api/pages', createPage);
-app.get('/api/pages/:id', getPage);
-app.put('/api/pages/:id', updatePage);
-app.delete('/api/pages/:id', deletePage);
+app.use('/api/pages', createPagesRouter());
 app.get('/preview/:id', previewPage);
 
-// Placeholder route handlers (to be implemented in Phase 1)
+// Placeholder route handlers
 async function serveEditor(req, res) {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-}
-
-async function listPages(req, res) {
-  try {
-    // TODO: Implement in WB-006
-    res.json({ pages: [] });
-  } catch (error) {
-    bosa.log.error(`ListPages failed | Error: ${error.message}`);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
-
-async function createPage(req, res) {
-  try {
-    // TODO: Implement in WB-006
-    res.status(501).json({ error: 'Not implemented yet' });
-  } catch (error) {
-    bosa.log.error(`CreatePage failed | Error: ${error.message}`);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
-
-async function getPage(req, res) {
-  try {
-    // TODO: Implement in WB-006
-    res.status(501).json({ error: 'Not implemented yet' });
-  } catch (error) {
-    bosa.log.error(`GetPage failed | Page ID: ${req.params.id} | Error: ${error.message}`);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
-
-async function updatePage(req, res) {
-  try {
-    // TODO: Implement in WB-006
-    res.status(501).json({ error: 'Not implemented yet' });
-  } catch (error) {
-    bosa.log.error(`UpdatePage failed | Page ID: ${req.params.id} | Error: ${error.message}`);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-}
-
-async function deletePage(req, res) {
-  try {
-    // TODO: Implement in WB-006
-    res.status(501).json({ error: 'Not implemented yet' });
-  } catch (error) {
-    bosa.log.error(`DeletePage failed | Page ID: ${req.params.id} | Error: ${error.message}`);
-    res.status(500).json({ error: 'Internal server error' });
-  }
 }
 
 async function previewPage(req, res) {
