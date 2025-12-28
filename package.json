@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch server.js",
+    "dev:frontend": "vite",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:frontend\"",
     "start": "node server.js",
     "build": "tsc && vite build",
     "build:frontend": "vite build",

@@ -1,0 +1,15 @@
+{
+  "sidebar": {
+    "links": [
+      {
+        "label": "Website Builder",
+        "url": "/bp_wb/",
+        "icon": "pencil-square",
+        "role": "super_admin",
+        "position": "after",
+        "after": "themes"
+      }
+    ]
+  }
+}
+

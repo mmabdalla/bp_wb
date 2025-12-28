@@ -3,6 +3,15 @@ version: 0.1.0
 description: BOSA Plugin Website Builder - Visual drag-and-drop page builder for BOSA apps
 author: BOSA Team
 
+# Sidebar configuration for Super Admin
+sidebar:
+  label: Website Builder
+  url: /bp_wb/
+  icon: pencil-square
+  role: super_admin
+  position: after
+  after: themes
+
 runtime:
   type: nodejs
   entry: server.js
