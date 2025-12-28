@@ -1,0 +1,17 @@
+BP_WB Version 0.1.0.001
+Date: December 21, 2025
+
+=== Latest Changes ===
+- [SETUP] Initial project structure and configuration
+  - Created manifest.yaml with Node.js runtime configuration
+  - Set up package.json with React, TypeScript, Vite, and build tools
+  - Created TypeScript configuration (tsconfig.json)
+  - Set up Vite build configuration
+  - Created ESLint and Prettier configuration files
+  - Created complete directory structure (frontend, backend, migrations)
+  - Created initial database schema migration (001_initial_schema.sql)
+  - Set up Express server with route handlers (server.js)
+  - Created frontend entry point (index.html, main.tsx)
+  - Created Linear issues document with all 71 features (WB-001 to WB-071)
+  - Initialized git repository and pushed to GitHub
+

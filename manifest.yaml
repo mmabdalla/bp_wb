@@ -1,0 +1,46 @@
+name: bp_wb
+version: 0.1.0
+description: BOSA Plugin Website Builder - Visual drag-and-drop page builder for BOSA apps
+author: BOSA Team
+
+runtime:
+  type: nodejs
+  entry: server.js
+
+routes:
+  # Editor routes
+  - path: /
+    method: GET
+    handler: serveEditor
+  - path: /editor
+    method: GET
+    handler: serveEditor
+  
+  # API routes for pages
+  - path: /api/pages
+    method: GET
+    handler: listPages
+  - path: /api/pages
+    method: POST
+    handler: createPage
+  - path: /api/pages/:id
+    method: GET
+    handler: getPage
+  - path: /api/pages/:id
+    method: PUT
+    handler: updatePage
+  - path: /api/pages/:id
+    method: DELETE
+    handler: deletePage
+  
+  # Renderer route
+  - path: /preview/:id
+    method: GET
+    handler: previewPage
+
+events:
+  publish:
+    - page.created
+    - page.updated
+    - page.deleted
+
