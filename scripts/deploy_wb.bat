@@ -7,9 +7,7 @@ setlocal enabledelayedexpansion
 REM Configuration
 REM Get script directory and go up one level to project root
 set "SCRIPT_DIR=%~dp0"
-set "SOURCE_DIR=%SCRIPT_DIR%.."
-REM Remove trailing backslash and normalize
-for %%I in ("%SOURCE_DIR%") do set "SOURCE_DIR=%%~fI"
+for %%I in ("%SCRIPT_DIR%..") do set "SOURCE_DIR=%%~fI"
 set "TARGET_DIR=D:\dev\projects\BOSA\apps\bp_wb"
 set "BOSA_DIR=D:\dev\projects\BOSA"
 
