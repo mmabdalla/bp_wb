@@ -1,0 +1,21 @@
+BOSA Sidebar Integration for BP_WB
+
+Add sidebar link support for apps in apps/ directory. BP_WB needs a "Theme Builder" link for Super Admin only, positioned after "Themes".
+
+Requirements:
+1. Read sidebar config from apps/*/manifest.yaml (sidebar section) or apps/*/sidebar.json
+2. Filter by role (super_admin only)
+3. Support positioning: position: "after" with after: "themes"
+4. Merge app links with core sidebar links
+
+Config format (apps/bp_wb/manifest.yaml):
+  sidebar:
+    label: Theme Builder
+    url: /bp_wb/
+    icon: pencil-square
+    role: super_admin
+    position: after
+    after: themes
+
+Result: Super Admin sees "Theme Builder" link after "Themes" → /bp_wb/
+

@@ -2,7 +2,7 @@
   "sidebar": {
     "links": [
       {
-        "label": "Website Builder",
+        "label": "Theme Builder",
         "url": "/bp_wb/",
         "icon": "pencil-square",
         "role": "super_admin",

@@ -5,7 +5,7 @@ author: BOSA Team
 
 # Sidebar configuration for Super Admin
 sidebar:
-  label: Website Builder
+  label: Theme Builder
   url: /bp_wb/
   icon: pencil-square
   role: super_admin
