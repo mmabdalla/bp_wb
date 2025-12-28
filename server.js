@@ -78,10 +78,20 @@ app.get('/editor', serveEditor);
 app.use('/api/pages', createPagesRouter());
 app.get('/preview/:id', previewPage);
 
-// Placeholder route handlers
+// Serve static assets (Vite build outputs)
+app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
+
+// Route handlers
 async function serveEditor(req, res) {
   const indexPath = path.join(__dirname, 'dist', 'frontend', 'index.html');
   res.sendFile(indexPath);
+}
+
+async function serveAssets(req, res) {
+  // Extract filepath parameter (everything after /assets/)
+  const filepath = req.params.filepath || req.path.replace('/assets/', '');
+  const assetPath = path.join(__dirname, 'dist', 'assets', filepath);
+  res.sendFile(assetPath);
 }
 
 async function previewPage(req, res) {
