@@ -25,11 +25,6 @@ routes:
     method: GET
     handler: serveEditor
   
-  # Static assets route
-  - path: /assets/:filepath
-    method: GET
-    handler: serveAssets
-  
   # API routes for pages
   - path: /api/pages
     method: GET
