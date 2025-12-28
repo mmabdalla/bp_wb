@@ -80,7 +80,8 @@ app.get('/preview/:id', previewPage);
 
 // Placeholder route handlers
 async function serveEditor(req, res) {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  const indexPath = path.join(__dirname, 'dist', 'frontend', 'index.html');
+  res.sendFile(indexPath);
 }
 
 async function previewPage(req, res) {

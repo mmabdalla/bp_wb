@@ -24,12 +24,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'frontend/index.html'),
-        renderer: path.resolve(__dirname, 'frontend/renderer/main.tsx'),
-      },
-      output: {
-        entryFileNames: (chunkInfo) => {
-          return chunkInfo.name === 'renderer' ? 'renderer.js' : '[name].js';
-        },
       },
     },
   },
