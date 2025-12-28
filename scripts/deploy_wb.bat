@@ -48,9 +48,19 @@ echo [INFO] Source: %SOURCE_DIR%
 echo [INFO] Target: %TARGET_DIR%
 echo.
 
-REM Build the frontend first
-echo [INFO] Building frontend...
+REM Build backend and frontend
+echo [INFO] Building backend (TypeScript)...
 cd /d "%SOURCE_DIR%"
+call npm run build:backend
+if errorlevel 1 (
+    echo [ERROR] Backend build failed!
+    pause
+    exit /b 1
+)
+echo [OK] Backend build completed
+echo.
+
+echo [INFO] Building frontend...
 call npm run build:frontend
 if errorlevel 1 (
     echo [ERROR] Frontend build failed!
@@ -82,10 +92,14 @@ if exist "%SOURCE_DIR%\package.json" (
     echo [OK] Copied package.json
 )
 
-REM Copy backend directory
+REM Copy backend directory (compiled JS files only, exclude .ts files)
 if exist "%SOURCE_DIR%\backend" (
     xcopy /E /I /Y "%SOURCE_DIR%\backend" "%TARGET_DIR%\backend" >nul
-    echo [OK] Copied backend directory
+    REM Remove TypeScript source files from target
+    for /r "%TARGET_DIR%\backend" %%f in (*.ts) do (
+        if not "%%~nxf"=="*.test.ts" del "%%f"
+    )
+    echo [OK] Copied backend directory (JS files)
 )
 
 REM Copy migrations directory

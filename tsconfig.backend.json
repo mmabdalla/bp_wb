@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "./backend",
+    "rootDir": "./backend",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": false,
+    "jsx": "preserve",
+    "lib": ["ES2020"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "include": ["backend/**/*"],
+  "exclude": ["node_modules", "dist", "backend/**/*.test.ts"]
+}
+
