@@ -48,5 +48,76 @@ describe('ComponentRenderer', () => {
     const button = screen.getByText('Test');
     expect(button).toHaveClass('btn', 'btn-primary');
   });
+
+  it('should handle unknown component types gracefully', () => {
+    const config = {
+      type: 'UnknownComponent',
+      properties: {},
+    };
+    render(
+      <TestWrapper>
+        <ComponentRenderer config={config} />
+      </TestWrapper>
+    );
+    expect(screen.getByText(/Unknown component/i)).toBeInTheDocument();
+  });
+
+  it('should handle deeply nested components', () => {
+    const config = {
+      type: 'Container',
+      children: [
+        {
+          type: 'Section',
+          children: [
+            {
+              type: 'Row',
+              children: [
+                {
+                  type: 'Column',
+                  children: [
+                    {
+                      type: 'Button',
+                      properties: { text: 'Nested Button' },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    render(
+      <TestWrapper>
+        <ComponentRenderer config={config} />
+      </TestWrapper>
+    );
+    expect(screen.getByText('Nested Button')).toBeInTheDocument();
+  });
+
+  it('should handle components without properties', () => {
+    const config = {
+      type: 'Spacer',
+    };
+    render(
+      <TestWrapper>
+        <ComponentRenderer config={config} />
+      </TestWrapper>
+    );
+    expect(screen.getByTestId('spacer')).toBeInTheDocument();
+  });
+
+  it('should handle components with empty children array', () => {
+    const config = {
+      type: 'Container',
+      children: [],
+    };
+    render(
+      <TestWrapper>
+        <ComponentRenderer config={config} />
+      </TestWrapper>
+    );
+    expect(screen.getByTestId('container')).toBeInTheDocument();
+  });
 });
 

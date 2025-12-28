@@ -21,6 +21,17 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'frontend/index.html'),
+        renderer: path.resolve(__dirname, 'frontend/renderer/main.tsx'),
+      },
+      output: {
+        entryFileNames: (chunkInfo) => {
+          return chunkInfo.name === 'renderer' ? 'renderer.js' : '[name].js';
+        },
+      },
+    },
   },
   server: {
     port: 5173,

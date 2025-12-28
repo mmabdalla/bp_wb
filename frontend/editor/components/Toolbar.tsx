@@ -5,6 +5,7 @@ interface ToolbarProps {
   onPreview?: () => void;
   onExit?: () => void;
   isLoading?: boolean;
+  hasUnsavedChanges?: boolean;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -12,6 +13,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onPreview,
   onExit,
   isLoading = false,
+  hasUnsavedChanges = false,
 }) => {
   return (
     <div data-testid="toolbar" className="toolbar">
@@ -20,8 +22,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         onClick={onSave}
         disabled={isLoading}
         aria-label="Save page"
+        className={hasUnsavedChanges ? 'has-changes' : ''}
       >
-        Save
+        Save {hasUnsavedChanges && '*'}
       </button>
       <button
         data-testid="preview-btn"
@@ -42,6 +45,11 @@ export const Toolbar: React.FC<ToolbarProps> = ({
       {isLoading && (
         <span data-testid="loading-indicator" className="loading">
           Loading...
+        </span>
+      )}
+      {hasUnsavedChanges && !isLoading && (
+        <span data-testid="unsaved-indicator" className="unsaved-indicator">
+          Unsaved changes
         </span>
       )}
     </div>

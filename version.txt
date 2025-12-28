@@ -1,7 +1,28 @@
-BP_WB Version 0.0.0.003
+BP_WB Version 0.0.0.004
 Date: December 21, 2025
 
 === Latest Changes ===
+- [FEATURE] WB-007: Basic Renderer - Complete renderer implementation
+  - Enhanced ComponentRenderer with error boundaries for graceful error handling
+  - Added support for deeply nested components with proper error isolation
+  - Enhanced LayoutEngine to handle empty configs, missing components, and complex structures
+  - Implemented preview page route handler in server.js using BOSA SDK
+  - Created renderer entry point (frontend/renderer/main.tsx) for preview functionality
+  - Added comprehensive tests for renderer components (7 tests passing)
+  - Components now handle unknown types, missing properties, and empty children gracefully
+- [FEATURE] WB-008: Save/Load Functionality - Complete save/load system with auto-save
+  - Implemented useAutoSave hook with debounced auto-save (2 second delay)
+  - Created useUnsavedChanges hook with beforeunload warning
+  - Implemented useNotifications hook for success/error/info/warning messages
+  - Created NotificationToast component for displaying notifications
+  - Enhanced Editor component with auto-save, unsaved changes tracking, and notifications
+  - Updated Toolbar to show unsaved changes indicator (*) and status
+  - Added loading states during save/load operations
+  - Implemented proper error handling and user feedback
+  - Page loads automatically on editor open
+  - Auto-save triggers on component changes (debounced)
+  - Unsaved changes warning prevents accidental navigation
+  - Comprehensive tests for all hooks (usePageStorage, useAutoSave, useUnsavedChanges, useNotifications)
 - [FEATURE] Added deployment script and sidebar integration
   - Created deploy_wb.bat script in D:\dev\projects\BOSA\apps\ for easy deployment
   - Added sidebar configuration to manifest.yaml for Super Admin link

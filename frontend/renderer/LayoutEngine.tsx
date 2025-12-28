@@ -8,6 +8,7 @@ interface PageConfig {
     properties?: Record<string, any>;
     children?: any[];
   }>;
+  styles?: Record<string, any>;
 }
 
 interface LayoutEngineProps {
@@ -15,13 +16,30 @@ interface LayoutEngineProps {
 }
 
 export const LayoutEngine: React.FC<LayoutEngineProps> = ({ pageConfig }) => {
+  if (!pageConfig) {
+    return (
+      <div data-testid="layout-engine" className="layout-engine">
+        <p>No page configuration provided</p>
+      </div>
+    );
+  }
+
   const components = pageConfig.components || [];
+  const styles = pageConfig.styles || {};
 
   return (
-    <div data-testid="layout-engine" className="layout-engine">
-      {components.map((comp, index) => (
-        <ComponentRenderer key={comp.id || index} config={comp} />
-      ))}
+    <div
+      data-testid="layout-engine"
+      className="layout-engine"
+      style={styles.container}
+    >
+      {components.length === 0 ? (
+        <div className="empty-page">No components to display</div>
+      ) : (
+        components.map((comp, index) => (
+          <ComponentRenderer key={comp.id || `comp-${index}`} config={comp} />
+        ))
+      )}
     </div>
   );
 };

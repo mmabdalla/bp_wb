@@ -9,6 +9,10 @@ export const Container: React.FC<ContainerProps> = ({
   children,
   className = '',
 }) => {
-  return <div className={`container ${className}`}>{children}</div>;
+  return (
+    <div data-testid="container" className={`container ${className}`}>
+      {children}
+    </div>
+  );
 };
 

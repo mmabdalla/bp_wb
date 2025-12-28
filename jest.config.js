@@ -1,5 +1,6 @@
 export default {
   preset: 'ts-jest/presets/default-esm',
+  testEnvironment: 'jsdom',
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   setupFilesAfterEnv: [
     '<rootDir>/jest.setup.js',

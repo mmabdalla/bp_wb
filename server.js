@@ -85,10 +85,53 @@ async function serveEditor(req, res) {
 
 async function previewPage(req, res) {
   try {
-    // TODO: Implement in WB-007
-    res.status(501).json({ error: 'Not implemented yet' });
+    const pageId = req.params.id;
+    
+    if (!bosa) {
+      bosa.log?.error('PreviewPage: BOSA SDK not initialized');
+      return res.status(500).json({ error: 'Server not initialized' });
+    }
+
+    // Load page config using BOSA SDK
+    const page = await bosa.db
+      .query('wb_pages')
+      .where('id', '=', Number(pageId))
+      .first();
+
+    if (!page) {
+      bosa.log?.warn(`PreviewPage: Page not found | ID: ${pageId}`);
+      return res.status(404).json({ error: 'Page not found' });
+    }
+
+    const pageConfig = JSON.parse(page.page_config);
+    
+    // Render preview HTML with LayoutEngine
+    const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview - Page ${pageId}</title>
+  <style>
+    body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, sans-serif; }
+    .preview-container { max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="preview-container" id="root"></div>
+  <script>
+    window.__PAGE_CONFIG__ = ${JSON.stringify(pageConfig)};
+  </script>
+  <script type="module" src="/bp_wb/renderer.js"></script>
+</body>
+</html>
+    `;
+
+    res.setHeader('Content-Type', 'text/html');
+    res.send(html);
   } catch (error) {
-    bosa.log.error(`PreviewPage failed | Page ID: ${req.params.id} | Error: ${error.message}`);
+    bosa.log?.error(`PreviewPage failed | Page ID: ${req.params.id} | Error: ${error.message}`);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

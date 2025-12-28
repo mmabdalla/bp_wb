@@ -1,10 +1,9 @@
 import React from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
+// Mock DndProvider for tests - components don't need drag-drop in renderer tests
 export const TestWrapper: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  return <DndProvider backend={HTML5Backend}>{children}</DndProvider>;
+  return <>{children}</>;
 };
 
