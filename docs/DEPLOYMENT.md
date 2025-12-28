@@ -4,10 +4,16 @@ This guide explains how to deploy the BP_WB Website Builder app to BOSA.
 
 ## Quick Deployment
 
-Run the deployment script from the BOSA apps directory:
+Run the deployment script from the project root:
 
 ```powershell
-cd D:\dev\projects\BOSA\apps
+.\scripts\deploy_wb.bat
+```
+
+Or from the scripts directory:
+
+```powershell
+cd scripts
 .\deploy_wb.bat
 ```
 
@@ -33,7 +39,7 @@ The app is configured to appear in the BOSA sidebar for Super Admin users only, 
 **Configuration in `manifest.yaml`:**
 ```yaml
 sidebar:
-  label: Website Builder
+  label: Theme Builder
   url: /bp_wb/
   icon: pencil-square
   role: super_admin
@@ -47,7 +53,7 @@ sidebar:
   "sidebar": {
     "links": [
       {
-        "label": "Website Builder",
+        "label": "Theme Builder",
         "url": "/bp_wb/",
         "icon": "pencil-square",
         "role": "super_admin",

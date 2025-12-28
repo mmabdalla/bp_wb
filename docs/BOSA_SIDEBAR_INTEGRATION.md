@@ -126,8 +126,7 @@ func PositionSidebarLinks(coreLinks []SidebarLink, appLinks []SidebarLink) []Sid
 
 1. **Deploy the app:**
    ```powershell
-   cd D:\dev\projects\BOSA\apps
-   .\deploy_wb.bat
+   .\scripts\deploy_wb.bat
    ```
 
 2. **Restart BOSA server**
