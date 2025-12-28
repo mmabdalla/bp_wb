@@ -81,7 +81,6 @@ app.get('/preview/:id', previewPage);
 // Serve static assets (Vite build outputs)
 app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
 
-// Route handlers
 async function serveEditor(req, res) {
   const indexPath = path.join(__dirname, 'dist', 'frontend', 'index.html');
   res.sendFile(indexPath);
