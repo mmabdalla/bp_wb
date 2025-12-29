@@ -83,6 +83,18 @@ app.get('/preview/:id', previewPage);
 // The base path in Vite config ensures assets are referenced as /bp_wb/assets/*
 app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
 
+// Handler function for manifest route (BOSA calls this)
+async function serveAssets(req, res) {
+  const filepath = req.params.filepath || req.path.replace('/assets/', '');
+  const assetPath = path.join(__dirname, 'dist', 'assets', filepath);
+  res.sendFile(assetPath, (err) => {
+    if (err) {
+      bosa.log?.error(`Failed to serve asset: ${filepath} | Error: ${err.message}`);
+      res.status(404).json({ error: 'Asset not found' });
+    }
+  });
+}
+
 async function serveEditor(req, res) {
   const indexPath = path.join(__dirname, 'dist', 'frontend', 'index.html');
   res.sendFile(indexPath);
