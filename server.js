@@ -79,7 +79,8 @@ app.use('/api/pages', createPagesRouter());
 app.get('/preview/:id', previewPage);
 
 // Serve static assets (Vite build outputs)
-// Note: BOSA forwards /bp_wb/assets/* to this plugin, so Express receives /assets/*
+// BOSA forwards /bp_wb/assets/* to this plugin, Express receives /assets/*
+// The base path in Vite config ensures assets are referenced as /bp_wb/assets/*
 app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
 
 async function serveEditor(req, res) {
