@@ -110,6 +110,14 @@ if exist "%SOURCE_DIR%\dist" (
     echo [OK] Copied dist directory (frontend build)
 )
 
+REM Copy assets to assets/ directory for BOSA automatic serving
+REM BOSA automatically serves files from assets/ at /bp_wb/assets/
+if exist "%SOURCE_DIR%\dist\assets" (
+    if not exist "%TARGET_DIR%\assets" mkdir "%TARGET_DIR%\assets"
+    xcopy /E /I /Y "%SOURCE_DIR%\dist\assets\*" "%TARGET_DIR%\assets\" >nul
+    echo [OK] Copied assets to assets/ directory (BOSA automatic serving)
+)
+
 REM Copy docs directory (optional, for documentation)
 if exist "%SOURCE_DIR%\docs" (
     xcopy /E /I /Y "%SOURCE_DIR%\docs" "%TARGET_DIR%\docs" >nul
