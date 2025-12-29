@@ -72,7 +72,7 @@ import { initPagesAPI, createPagesRouter } from './backend/api/pages.js';
 // Initialize pages API
 initPagesAPI(bosa);
 
-// Route handlers
+// Route handlers - order matters! More specific routes first
 app.get('/', serveEditor);
 app.get('/editor', serveEditor);
 app.use('/api/pages', createPagesRouter());
@@ -81,7 +81,10 @@ app.get('/preview/:id', previewPage);
 // Serve static assets (Vite build outputs)
 // BOSA forwards /bp_wb/assets/* to this plugin, Express receives /assets/*
 // The base path in Vite config ensures assets are referenced as /bp_wb/assets/*
-app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
+// Use static middleware first (faster), then fallback to handler
+app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets'), {
+  fallthrough: false, // Don't fall through if file not found
+}));
 
 // Also handle assets with parameterized route (for BOSA catch-all routing)
 app.get('/assets/:filepath', serveAssets);
