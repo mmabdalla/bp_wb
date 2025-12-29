@@ -83,6 +83,9 @@ app.get('/preview/:id', previewPage);
 // The base path in Vite config ensures assets are referenced as /bp_wb/assets/*
 app.use('/assets', express.static(path.join(__dirname, 'dist', 'assets')));
 
+// Also handle assets with parameterized route (for BOSA catch-all routing)
+app.get('/assets/:filepath', serveAssets);
+
 // Handler function for manifest route (BOSA calls this)
 async function serveAssets(req, res) {
   const filepath = req.params.filepath || req.path.replace('/assets/', '');
